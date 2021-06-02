@@ -1,0 +1,35 @@
+body,
+canvas,
+html {
+    user-select: none;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #945d5d;
+}
+
+.game {
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: default !important;
+}
+
+.fadeIn {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.fadeOut {
+    opacity: 0;
+    transition: opacity 0.5s;
+}

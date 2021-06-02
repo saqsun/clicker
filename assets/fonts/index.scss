@@ -1,0 +1,12 @@
+$families: ();
+
+@each $family in $families {
+    @font-face {
+        font-family: $family;
+        src: url('./#{$family}.woff2') format('woff2');
+    }
+}
+
+:export {
+    families: if(length($families) > 0, $families, '');
+}

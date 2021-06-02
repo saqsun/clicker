@@ -1,0 +1,51 @@
+{
+    "spine": true,
+    "legologger": false,
+    "variation": {
+        "image": {
+            "bg/play/bg.jpg": {
+                "description": "Game Background",
+                "options": ["bg/play/bg_alt.jpg"],
+                "active": -1
+            },
+            "bg/cta/bg.jpg": {
+                "description": "CTA Background",
+                "options": ["bg/cta/bg_alt.jpg"],
+                "active": 0
+            },
+            "main/ui/cta_icon.png": {
+                "description": "CTA icon",
+                "options": ["main/ui/cta_icon_alt1.png", "main/ui/cta_icon_alt2.png"],
+                "active": 0
+            }
+        },
+        "module": {
+            "cta": {
+                "description": "CTA style",
+                "options": {
+                    "traditional": {
+                        "path": "src/views/cta-traditional",
+                        "description": "Traditional CTA",
+                        "assets": []
+                    },
+                    "starRating": {
+                        "path": "src/views/cta-star-rating",
+                        "description": "Star Rating CTA",
+                        "assets": ["ui/star_full.png", "ui/star_half.png", "ui/cta_icon.png"]
+                    }
+                },
+                "active": "traditional"
+            }
+        }
+    },
+    "size": {
+        "landscape": { "width": 1390, "height": 640 },
+        "portrait": { "width": 640, "height": 1390 }
+    },
+    "compression": {
+        "default": {
+            "assets/atlases/**/*.jpg": 80,
+            "assets/atlases/**/*.png": 80
+        }
+    }
+}

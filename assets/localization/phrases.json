@@ -1,0 +1,17 @@
+{
+    "HP": {
+        "en": "%{hp}HP"
+    },
+    "level": {
+        "en": "Level %{level}"
+    },
+    "bot": {
+        "en": "Bot %{bot}"
+    },
+    "boss": {
+        "en": "Boss"
+    },
+    "damage": {
+        "en": "Damage %{damage}"
+    }
+}
