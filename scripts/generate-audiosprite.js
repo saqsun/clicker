@@ -1,12 +1,16 @@
 const path = require('path');
 const audiosprite = require('audiosprite');
-const { readdirSync, writeFileSync } = require('fs');
+const { readdirSync, writeFileSync, existsSync } = require('fs');
 const { exec } = require('child_process');
 
 module.exports = () => {
     return new Promise((resolve, reject) => {
         const outputPath = path.join('assets', 'sounds');
         const inputPath = path.join('assets-raw', 'sounds');
+        if (!existsSync(inputPath)) {
+            resolve();
+            return;
+        }
         const dirCont = readdirSync(inputPath);
         const slices = dirCont
             .filter((elm) => {

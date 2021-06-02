@@ -1,5 +1,5 @@
 const path = require('path');
-const { readdirSync, writeFileSync, readFileSync } = require('fs');
+const { readdirSync, writeFileSync, readFileSync, existsSync } = require('fs');
 const { packAsync } = require('free-tex-packer-core');
 const getFilesRecursively = require('./utils/get-files-recursively');
 const isDirectory = require('./utils/is-directory');
@@ -70,6 +70,9 @@ module.exports = async () => {
 
     const outputPath = path.join('assets', 'atlases');
     const inputPath = path.join('assets-raw', 'atlases');
+    if (!existsSync(inputPath)) {
+        return;
+    }
     const atlases = readdirSync(inputPath).filter((f) => isDirectory(path.join(inputPath, f)));
     for await (const a of atlases) {
         const spritesheetRoot = path.join(inputPath, a);
