@@ -216,6 +216,13 @@ module.exports = () => {
                 throw Error(`Unknown asset type "${type}"`);
         }
     });
+    assets = assets
+        .replace(`__sound__`, '')
+        .replace(`__particles__`, '')
+        .replace(`__spines__`, '')
+        .replace(`__atlases__`, '')
+        .replace(`__css__`, '')
+        .replace(`__googleFonts__`, '');
 
     saveFile('assets', 'index', assets, `import { Custom, Google } from "webfontloader";\n`);
     saveFile('textures', 'textures', textures);
