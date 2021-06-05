@@ -9,5 +9,6 @@ import './game';
         const { legologger } = require('@armathai/lego-logger');
         legologger.start(lego, {});
     }
+    console.warn('object');
     lego.command.on(GameEvent.init, startupCommand);
 })();

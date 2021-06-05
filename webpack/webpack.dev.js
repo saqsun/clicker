@@ -18,6 +18,19 @@ module.exports = (network, defaultLoader) =>
             }),
             new ForkTsCheckerNotifierWebpackPlugin({ title: 'TypeScript', excludeWarnings: false }),
         ],
+        module: {
+            rules: [
+                {
+                    // Include ts, tsx, js, and jsx files.
+                    test: /\.(ts|js)x?$/,
+                    exclude: new RegExp(`node_modules`),
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-typescript'],
+                    },
+                },
+            ],
+        },
         devtool: 'eval-cheap-module-source-map',
         mode: 'development',
     });
