@@ -9,7 +9,7 @@
         "en": "Bot %{bot}"
     },
     "boss": {
-        "en": "Boss"
+        "en": "Boss %{time}"
     },
     "damage": {
         "en": "Damage %{damage}"

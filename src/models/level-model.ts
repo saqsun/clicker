@@ -55,6 +55,10 @@ export class LevelModel extends ObservableModel {
         this._boss.initialize(Math.ceil(this._calculateBossHp()));
     }
 
+    public reviveBoss(): void {
+        this._boss.revive();
+    }
+
     public destroyBot(): void {
         this._bot && this._bot.destroy();
         this._bot = null;

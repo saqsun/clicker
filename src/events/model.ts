@@ -1,6 +1,8 @@
 export enum BossModelEvent {
     hpUpdate = 'BossModelHpUpdate',
     defeatUpdate = 'BossModelDefeatUpdate',
+    reviveTimerCompleteUpdate = 'BossModelReviveTimerCompleteUpdate',
+    timeUpdate = 'BossModelTimeUpdate',
 }
 
 export enum BotModelEvent {

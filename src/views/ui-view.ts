@@ -39,6 +39,7 @@ export class UIView extends PixiGrid {
             .on(LevelModelEvent.botUpdate, this._onBotUpdate, this)
             .on(LevelModelEvent.bossUpdate, this._onBossUpdate, this)
             .on(BotModelEvent.hpUpdate, this._onHpUpdate, this)
+            .on(BossModelEvent.timeUpdate, this._onTimeUpdate, this)
             .on(BossModelEvent.hpUpdate, this._onHpUpdate, this);
     }
 
@@ -82,6 +83,10 @@ export class UIView extends PixiGrid {
 
     private _onHpUpdate(hp: number): void {
         this._hp.text = localization.t(phrases.HP, { hp });
+    }
+
+    private _onTimeUpdate(time: number): void {
+        this._wave.text = localization.t(phrases.boss, { time });
     }
 
     private _onDamageUpdate(damage: number): void {
