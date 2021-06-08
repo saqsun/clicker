@@ -2,7 +2,7 @@ import { loopRunnable, removeRunnable } from '../utils';
 import { BotModel } from './bot-model';
 
 export class BossModel extends BotModel {
-    private static _reviveTimer = 5;
+    private static _reviveTimer = 30;
     private _reviveDelayRunnable: Runnable;
     private _reviveTimerComplete = false;
     private _baseHp: number;
