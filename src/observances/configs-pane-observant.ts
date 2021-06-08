@@ -70,6 +70,8 @@ export class ConfigsPaneObservant {
 
             this._levelsPane.addSeparator();
         });
+        const levels = document.getElementsByClassName('tp-brkv tp-v-fst tp-v-vfst tp-v-lst')[0];
+        levels.classList.add('levels');
     }
 
     private _addActionBindings(): void {
