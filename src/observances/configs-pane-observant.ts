@@ -1,3 +1,5 @@
+import { saveAs } from 'file-saver';
+import JSZip from 'jszip';
 import { Pane } from 'tweakpane';
 import { levelConfigs } from '../constants/configs/level-configs';
 import { playerConfig } from '../constants/configs/player-configs';
@@ -85,6 +87,14 @@ export class ConfigsPaneObservant {
 
         this._pane
             .addButton({
+                title: 'Export',
+            })
+            .on('click', () => this._export());
+
+        this._pane.addSeparator();
+
+        this._pane
+            .addButton({
                 title: 'Reset',
             })
             .on('click', () => this._reset());
@@ -98,6 +108,18 @@ export class ConfigsPaneObservant {
         game.resetConfigs();
         const urlSearchParams = new URLSearchParams().toString();
         window.location.search = urlSearchParams;
+    }
+
+    private async _export(): Promise<void> {
+        const zip = new JSZip();
+        zip.file('level-configs.json', JSON.stringify(levelConfigs));
+        zip.file('player-configs.json', JSON.stringify(playerConfig));
+        const blob = await zip.generateAsync({ type: 'blob' });
+        saveAs(blob, 'game-configs.zip');
+
+        // game.resetConfigs();
+        // const urlSearchParams = new URLSearchParams().toString();
+        // window.location.search = urlSearchParams;
     }
 
     private _togglePane(): void {
