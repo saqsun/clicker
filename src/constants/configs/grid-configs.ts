@@ -3,6 +3,7 @@ import { lp } from '../../utils';
 import { getBackgroundGridLandscapeConfig, getBackgroundGridPortraitConfig } from './grid/background-grid-configs';
 import { getForegroundGridLandscapeConfig, getForegroundGridPortraitConfig } from './grid/foreground-grid-configs';
 import { getGameGridLandscapeConfig, getGameGridPortraitConfig } from './grid/game-grid-configs';
+import { getLevelGridLandscapeConfig, getLevelGridPortraitConfig } from './grid/level-grid-configs';
 import { getMainGridLandscapeConfig, getMainGridPortraitConfig } from './grid/main-grid-configs';
 import { getUIGridLandscapeConfig, getUIGridPortraitConfig } from './grid/ui-grid-configs';
 
@@ -24,4 +25,8 @@ export const getUIGridConfig = (): ICellConfig => {
 
 export const getGameGridConfig = (): ICellConfig => {
     return lp(getGameGridLandscapeConfig, getGameGridPortraitConfig).call(null);
+};
+
+export const getLevelGridConfig = (): ICellConfig => {
+    return lp(getLevelGridLandscapeConfig, getLevelGridPortraitConfig).call(null);
 };

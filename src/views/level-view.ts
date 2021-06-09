@@ -1,19 +1,37 @@
 import { lego } from '@armathai/lego';
+import { ICellConfig, PixiGrid } from '@armathai/pixi-grid';
+import { Rectangle } from '@pixi/math';
+import { getLevelGridConfig } from '../constants/configs/grid-configs';
+import { GameEvent } from '../events/game';
 import { LevelModelEvent } from '../events/model';
 import { BotModel } from '../models/bot-model';
-import { Container } from '../utils/container';
+import { postRunnable } from '../utils';
 import { BossView } from './boss-view';
 import { BotView } from './bot-view';
 
-export class LevelView extends Container {
+export class LevelView extends PixiGrid {
     private _botView: BotView;
 
     public constructor() {
         super();
         this.name = 'LevelView';
         lego.event
+            .on(GameEvent.resize, this._onResize, this)
             .on(LevelModelEvent.botUpdate, this._onBotUpdate, this)
             .on(LevelModelEvent.bossUpdate, this._onBossUpdate, this);
+    }
+
+    public getGridConfig(): ICellConfig {
+        return getLevelGridConfig();
+    }
+
+    private _onResize(): void {
+        postRunnable(() => {
+            const { area } = this.getCellByName('actor');
+            if (this._botView) {
+                this._botView.updateHitArea(new Rectangle(0, 0, area.width, area.height));
+            }
+        });
     }
 
     private _onBotUpdate(bot: BotModel): void {
@@ -21,11 +39,13 @@ export class LevelView extends Container {
     }
 
     private _createBotView(): void {
-        this._botView = new BotView();
-        this.addChild(this._botView);
+        const { area } = this.getCellByName('actor');
+        this._botView = new BotView(new Rectangle(0, 0, area.width, area.height));
+        this.setChild('actor', this._botView);
     }
 
     private _destroyBotView(): void {
+        this.removeContent(this._botView);
         this._botView.destroy();
     }
 
@@ -34,8 +54,9 @@ export class LevelView extends Container {
     }
 
     private _createBossView(): void {
-        this._botView = new BossView();
-        this.addChild(this._botView);
+        const { area } = this.getCellByName('actor');
+        this._botView = new BossView(new Rectangle(0, 0, area.width, area.height));
+        this.setChild('actor', this._botView);
     }
 
     private _destroyBossView(): void {

@@ -1,11 +1,12 @@
 import { lego } from '@armathai/lego';
 import { Graphics } from '@pixi/graphics';
+import { Rectangle } from '@pixi/math';
 import { BossViewEvent } from '../events/view';
 import { BotView } from './bot-view';
 
 export class BossView extends BotView {
-    public constructor() {
-        super();
+    public constructor(hitArea: Rectangle) {
+        super(hitArea);
         this.name = 'BossView';
     }
 
