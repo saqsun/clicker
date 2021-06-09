@@ -5,7 +5,16 @@ const generateImageLoaderConfig = require('../scripts/generate-image-loader-conf
 
 const packageJson = require('../package.json');
 
-const notBabelable = ['core-js', 'node-polyglot', 'webfontloader', '@babel/preset-env', 'tweakpane', 'localforage'];
+const notBabelable = [
+    'core-js',
+    'node-polyglot',
+    'webfontloader',
+    '@babel/preset-env',
+    'tweakpane',
+    'localforage',
+    'file-saver',
+    'jszip',
+];
 
 const getBabelableModules = () =>
     [...Object.keys(packageJson.dependencies), '@pixi', '@pixi-spine', '@replayable']
