@@ -7,6 +7,7 @@ export enum BossModelEvent {
 
 export enum BotModelEvent {
     hpUpdate = 'BotModelHpUpdate',
+    moneyUpdate = 'BotModelMoneyUpdate',
     defeatUpdate = 'BotModelDefeatUpdate',
 }
 
@@ -27,6 +28,7 @@ export enum ObservableModelEvent {
 
 export enum PlayerModelEvent {
     damageUpdate = 'PlayerModelDamageUpdate',
+    moneyUpdate = 'PlayerModelMoneyUpdate',
 }
 
 export enum StoreEvent {

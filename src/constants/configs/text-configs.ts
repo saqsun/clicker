@@ -61,3 +61,18 @@ export const getDamageTextConfig = (): TextConfig => {
         }),
     };
 };
+
+export const getMoneyTextConfig = (): TextConfig => {
+    return {
+        text: localization.t(phrases.level, { level: 0 }),
+        style: new TextStyle({
+            fontSize: 44,
+            fill: '#000000',
+            dropShadow: true,
+            dropShadowAngle: 90,
+            dropShadowDistance: 2,
+            dropShadowBlur: 5,
+            dropShadowColor: '#ffffff',
+        }),
+    };
+};

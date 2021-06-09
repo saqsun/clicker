@@ -56,16 +56,18 @@ interface Document {
     webkitHidden?: string;
 }
 
-type PlayerConfig = { damage: number };
+type PlayerConfig = { damage: number; money: number };
 
 type BotConfig = {
     count: number;
     startHp: number;
     incrementHp: { min: number; max: number };
+    money: number;
 };
 
 type BossConfig = {
     incrementHp: { min: number; max: number };
+    money: number;
 };
 
 type LevelConfig = {

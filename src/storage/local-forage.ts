@@ -3,12 +3,13 @@ import { levelConfigs, updateLevelConfigs } from '../constants/configs/level-con
 import { playerConfig, updatePlayerConfig } from '../constants/configs/player-configs';
 
 export class LocalForage {
+    private static _version = 1;
     private _loading: boolean;
 
     public constructor() {
         localforage.config({
             name: 'clicker',
-            version: 1.0,
+            version: LocalForage._version,
             storeName: 'game', // Should be alphanumeric, with underscores.
         });
     }
@@ -19,17 +20,23 @@ export class LocalForage {
 
     public async load(): Promise<void> {
         this._loading = true;
-        const [localforagePlayerConfig, localforageLevelConfigs] = await Promise.all([
+        const [version, localforagePlayerConfig, localforageLevelConfigs] = await Promise.all([
+            <number>(<unknown>localforage.getItem('version')),
             <PlayerConfig>(<unknown>localforage.getItem('playerConfig')),
             <LevelConfig[]>(<unknown>localforage.getItem('levelConfigs')),
         ]);
-        localforagePlayerConfig && updatePlayerConfig(localforagePlayerConfig);
-        localforageLevelConfigs && updateLevelConfigs(localforageLevelConfigs);
+
+        if (version && version === LocalForage._version) {
+            localforagePlayerConfig && updatePlayerConfig(localforagePlayerConfig);
+            localforageLevelConfigs && updateLevelConfigs(localforageLevelConfigs);
+        }
+
         this._loading = false;
     }
 
     public async save(): Promise<void> {
         await Promise.all([
+            localforage.setItem('version', LocalForage._version),
             localforage.setItem('playerConfig', playerConfig),
             localforage.setItem('levelConfigs', levelConfigs),
         ]);

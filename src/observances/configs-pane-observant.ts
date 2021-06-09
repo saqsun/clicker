@@ -1,8 +1,10 @@
+import { lego } from '@armathai/lego';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 import { Pane } from 'tweakpane';
 import { levelConfigs } from '../constants/configs/level-configs';
 import { playerConfig } from '../constants/configs/player-configs';
+import { PlayerModelEvent } from '../events/model';
 
 export class ConfigsPaneObservant {
     private _pane: ExtendedPane;
@@ -35,6 +37,8 @@ export class ConfigsPaneObservant {
         if (sessionStorage['__tweakpane_hidden__'] === 'true') {
             this._togglePane();
         }
+
+        lego.event.on(PlayerModelEvent.moneyUpdate, this._onPlayerMoneyUpdate, this);
     }
 
     private static _setStyle(): void {
@@ -48,6 +52,7 @@ export class ConfigsPaneObservant {
 
     private _addPlayerBindings(): void {
         this._playerPane.addInput(playerConfig, 'damage', { step: 1 });
+        this._playerPane.addInput(playerConfig, 'money', { step: 1 });
     }
 
     private _addLevelsBindings(): void {
@@ -66,9 +71,11 @@ export class ConfigsPaneObservant {
             botsTab.addInput(bots, 'startHp', { label: 'start hp', step: 1 });
             botsTab.addInput(bots.incrementHp, 'min', { label: 'min hp increment %', step: 1 });
             botsTab.addInput(bots.incrementHp, 'max', { label: 'max hp increment %', step: 1 });
+            botsTab.addInput(bots, 'money', { label: 'money', step: 1 });
 
             bossTab.addInput(boss.incrementHp, 'min', { label: 'min hp increment %', step: 1 });
             bossTab.addInput(boss.incrementHp, 'max', { label: 'max hp increment %', step: 1 });
+            bossTab.addInput(boss, 'money', { label: 'money', step: 1 });
 
             this._levelsPane.addSeparator();
         });
@@ -125,5 +132,12 @@ export class ConfigsPaneObservant {
     private _togglePane(): void {
         this._pane.hidden = !this._pane.hidden;
         sessionStorage['__tweakpane_hidden__'] = this._pane.hidden;
+    }
+
+    private _onPlayerMoneyUpdate(money: number): void {
+        playerConfig.money = money;
+        this._pane.refresh();
+
+        // this._playerPane.addInput(playerConfig, 'money', { step: 1 });
     }
 }

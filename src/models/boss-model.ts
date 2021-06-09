@@ -29,8 +29,8 @@ export class BossModel extends BotModel {
         return this._time;
     }
 
-    public initialize(hp: number): void {
-        super.initialize(hp);
+    public initialize(hp: number, money: number): void {
+        super.initialize(hp, money);
         this._baseHp = hp;
         this._startReviveTimer();
     }
@@ -38,7 +38,7 @@ export class BossModel extends BotModel {
     public revive(): void {
         this._stopReviveTimer();
         this._reviveTimerComplete = false;
-        this.initialize(this._baseHp);
+        this.initialize(this._baseHp, this.$money);
     }
 
     public hit(damage: number): void {

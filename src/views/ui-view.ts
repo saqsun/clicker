@@ -6,6 +6,7 @@ import {
     getDamageTextConfig,
     getHPTextConfig,
     getLevelTextConfig,
+    getMoneyTextConfig,
     getWaveTextConfig,
 } from '../constants/configs/text-configs';
 import {
@@ -27,6 +28,7 @@ export class UIView extends PixiGrid {
     private _level: Text;
     private _wave: Text;
     private _damage: Text;
+    private _money: Text;
 
     public constructor() {
         super();
@@ -36,6 +38,7 @@ export class UIView extends PixiGrid {
             .on(StoreEvent.playerUpdate, this._onPlayerUpdate, this)
             .on(GameModelEvent.levelUpdate, this._onLevelUpdate, this)
             .on(PlayerModelEvent.damageUpdate, this._onDamageUpdate, this)
+            .on(PlayerModelEvent.moneyUpdate, this._onMoneyUpdate, this)
             .on(LevelModelEvent.botUpdate, this._onBotUpdate, this)
             .on(LevelModelEvent.bossUpdate, this._onBossUpdate, this)
             .on(BotModelEvent.hpUpdate, this._onHpUpdate, this)
@@ -61,6 +64,9 @@ export class UIView extends PixiGrid {
     private _onPlayerUpdate(): void {
         this._damage = makeText(getDamageTextConfig());
         this.setChild('damage', this._damage);
+
+        this._money = makeText(getMoneyTextConfig());
+        this.setChild('money', this._money);
     }
 
     private _onLevelUpdate(): void {
@@ -91,5 +97,9 @@ export class UIView extends PixiGrid {
 
     private _onDamageUpdate(damage: number): void {
         this._damage.text = localization.t(phrases.damage, { damage });
+    }
+
+    private _onMoneyUpdate(money: number): void {
+        this._money.text = localization.t(phrases.money, { money });
     }
 }

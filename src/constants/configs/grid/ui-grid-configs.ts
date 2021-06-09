@@ -19,7 +19,11 @@ export const getUIGridLandscapeConfig = (): ICellConfig => {
             },
             {
                 name: 'damage',
-                bounds: { x: 0, y: 0.86, height: 0.14 },
+                bounds: { x: 0, y: 0.86, height: 0.07 },
+            },
+            {
+                name: 'money',
+                bounds: { x: 0, y: 0.93, height: 0.07 },
             },
         ],
     };
@@ -44,7 +48,11 @@ export const getUIGridPortraitConfig = (): ICellConfig => {
             },
             {
                 name: 'damage',
-                bounds: { x: 0, y: 0.8, height: 0.2 },
+                bounds: { x: 0, y: 0.8, height: 0.1 },
+            },
+            {
+                name: 'money',
+                bounds: { x: 0, y: 0.9, height: 0.1 },
             },
         ],
     };

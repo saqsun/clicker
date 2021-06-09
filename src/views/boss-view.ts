@@ -1,5 +1,6 @@
 import { lego } from '@armathai/lego';
 import { Graphics } from '@pixi/graphics';
+import { InteractionEvent } from '@pixi/interaction';
 import { Rectangle } from '@pixi/math';
 import { BossViewEvent } from '../events/view';
 import { BotView } from './bot-view';
@@ -18,7 +19,7 @@ export class BossView extends BotView {
         this.addChild(graphics);
     }
 
-    protected $onPointerDown(): void {
-        lego.event.emit(BossViewEvent.click);
+    protected $onPointerDown(e: InteractionEvent): void {
+        e.data.isPrimary && lego.event.emit(BossViewEvent.click);
     }
 }
