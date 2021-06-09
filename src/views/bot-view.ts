@@ -1,5 +1,6 @@
 import { lego } from '@armathai/lego';
 import { Graphics } from '@pixi/graphics';
+import { InteractionEvent } from '@pixi/interaction';
 import { BotModelEvent } from '../events/model';
 import { BotViewEvent } from '../events/view';
 import { Container } from '../utils/container';
@@ -14,7 +15,7 @@ export class BotView extends Container {
     }
 
     protected $onHpUpdate(hp: number): void {
-        console.info(hp);
+        void hp;
     }
 
     protected $build(): void {
@@ -30,7 +31,7 @@ export class BotView extends Container {
         this.on('pointerdown', this.$onPointerDown, this);
     }
 
-    protected $onPointerDown(): void {
-        lego.event.emit(BotViewEvent.click);
+    protected $onPointerDown(e: InteractionEvent): void {
+        e.data.isPrimary && lego.event.emit(BotViewEvent.click);
     }
 }
