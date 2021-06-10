@@ -35,12 +35,12 @@ export class LevelView extends PixiGrid {
     }
 
     private _onBotUpdate(bot: BotModel): void {
-        bot ? this._createBotView() : this._destroyBotView();
+        bot ? this._createBotView(bot) : this._destroyBotView();
     }
 
-    private _createBotView(): void {
+    private _createBotView(bot: BotModel): void {
         const { area } = this.getCellByName('actor');
-        this._botView = new BotView(new Rectangle(0, 0, area.width, area.height));
+        this._botView = new BotView(bot.uuid, new Rectangle(0, 0, area.width, area.height));
         this.setChild('actor', this._botView);
     }
 
@@ -50,12 +50,12 @@ export class LevelView extends PixiGrid {
     }
 
     private _onBossUpdate(bot: BotModel): void {
-        bot ? this._createBossView() : this._destroyBossView();
+        bot ? this._createBossView(bot) : this._destroyBossView();
     }
 
-    private _createBossView(): void {
+    private _createBossView(bot: BotModel): void {
         const { area } = this.getCellByName('actor');
-        this._botView = new BossView(new Rectangle(0, 0, area.width, area.height));
+        this._botView = new BossView(bot.uuid, new Rectangle(0, 0, area.width, area.height));
         this.setChild('actor', this._botView);
     }
 

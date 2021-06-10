@@ -1,10 +1,14 @@
 import { lego } from '@armathai/lego';
 import { ICellConfig, PixiGrid } from '@armathai/pixi-grid';
+import { Point } from '@pixi/math';
 import { Text } from '@pixi/text';
+import gsap from 'gsap/all';
 import { getUIGridConfig } from '../constants/configs/grid-configs';
 import {
     getDamageTextConfig,
+    getDecrementHpTextConfig,
     getHPTextConfig,
+    getIncrementMoneyTextConfig,
     getLevelTextConfig,
     getMoneyTextConfig,
     getWaveTextConfig,
@@ -21,7 +25,8 @@ import { localization } from '../localization';
 import { phrases } from '../localization/phrases';
 import { BotModel } from '../models/bot-model';
 import { store } from '../models/store';
-import { makeText } from '../utils';
+import { getDisplayObjectByProperty, makeText } from '../utils';
+import { randomInt } from '../utils/number/random-int';
 
 export class UIView extends PixiGrid {
     private _hp: Text;
@@ -87,8 +92,25 @@ export class UIView extends PixiGrid {
         this._wave.text = localization.t(phrases.boss);
     }
 
-    private _onHpUpdate(hp: number): void {
+    private _onHpUpdate(hp: number, oldHP: number, uuid: string): void {
         this._hp.text = localization.t(phrases.HP, { hp });
+        if (oldHP > hp) {
+            const actor = getDisplayObjectByProperty('name', uuid);
+            const dHPText = makeText(getDecrementHpTextConfig(oldHP - hp));
+            const pos = dHPText.toLocal(new Point(0, 0), actor);
+            dHPText.position.copyFrom(pos);
+            window.game.stage.addChild(dHPText);
+            gsap.to(dHPText, {
+                duration: 1,
+                y: `-=${randomInt(190, 210)}`,
+                x: `+=${randomInt(-20, 20)}`,
+                alpha: 0,
+                onComplete: () => {
+                    gsap.killTweensOf(dHPText);
+                    dHPText.destroy();
+                },
+            });
+        }
     }
 
     private _onTimeUpdate(time: number): void {
@@ -99,7 +121,23 @@ export class UIView extends PixiGrid {
         this._damage.text = localization.t(phrases.damage, { damage });
     }
 
-    private _onMoneyUpdate(money: number): void {
+    private _onMoneyUpdate(money: number, oldMoney: number): void {
         this._money.text = localization.t(phrases.money, { money });
+        if (oldMoney < money) {
+            const dMoneyText = makeText(getIncrementMoneyTextConfig(money - oldMoney));
+            const pos = dMoneyText.toLocal(new Point(0, 0), this._money);
+            dMoneyText.position.copyFrom(pos);
+            window.game.stage.addChild(dMoneyText);
+            gsap.to(dMoneyText, {
+                duration: 1,
+                y: `-=${randomInt(20, 30)}`,
+                x: `+=${randomInt(-20, 20)}`,
+                alpha: 0,
+                onComplete: () => {
+                    gsap.killTweensOf(dMoneyText);
+                    dMoneyText.destroy();
+                },
+            });
+        }
     }
 }

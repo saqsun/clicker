@@ -19,5 +19,8 @@
     },
     "decrement_hp": {
         "en": "-%{hp}"
+    },
+    "increment_money": {
+        "en": "+%{money}"
     }
 }

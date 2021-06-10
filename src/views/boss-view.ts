@@ -7,9 +7,8 @@ import { BossViewEvent } from '../events/view';
 import { BotView } from './bot-view';
 
 export class BossView extends BotView {
-    public constructor(hitArea: Rectangle) {
-        super(hitArea);
-        this.name = 'BossView';
+    public constructor(uuid: string, hitArea: Rectangle) {
+        super(uuid, hitArea);
         lego.event.on(BossModelEvent.hpUpdate, this.$onHpUpdate, this);
     }
 

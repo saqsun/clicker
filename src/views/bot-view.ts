@@ -1,19 +1,16 @@
 import { lego } from '@armathai/lego';
 import { Graphics } from '@pixi/graphics';
 import { InteractionEvent } from '@pixi/interaction';
-import { Point, Rectangle } from '@pixi/math';
+import { Rectangle } from '@pixi/math';
 import gsap from 'gsap/all';
-import { getDecrementHpTextConfig } from '../constants/configs/text-configs';
 import { BotModelEvent } from '../events/model';
 import { BotViewEvent } from '../events/view';
-import { makeText } from '../utils';
 import { Container } from '../utils/container';
-import { randomInt } from '../utils/number/random-int';
 
 export class BotView extends Container {
-    public constructor(hitArea: Rectangle) {
+    public constructor(uuid: string, hitArea: Rectangle) {
         super();
-        this.name = 'BotView';
+        this.name = uuid;
         this.$build();
         this.$makeInteractive(hitArea);
         lego.event.on(BotModelEvent.hpUpdate, this.$onHpUpdate, this);
@@ -34,20 +31,6 @@ export class BotView extends Container {
                 yoyo: true,
                 repeat: 1,
                 ease: 'bounce.out',
-            });
-            const dHPText = makeText(getDecrementHpTextConfig(oldHP - newHP));
-            const pos = dHPText.toLocal(new Point(0, 0), this);
-            dHPText.position.copyFrom(pos);
-            window.game.stage.addChild(dHPText);
-            gsap.to(dHPText, {
-                duration: 2,
-                y: `-=${randomInt(190, 210)}`,
-                x: `+=${randomInt(-20, 20)}`,
-                alpha: 0,
-                onComplete: () => {
-                    gsap.killTweensOf(dHPText);
-                    dHPText.destroy();
-                },
             });
         }
     }

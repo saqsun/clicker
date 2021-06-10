@@ -8,4 +8,5 @@ export const phrases = {
     damage: 'damage',
     money: 'money',
     decrement_hp: 'decrement_hp',
+    increment_money: 'increment_money',
 };

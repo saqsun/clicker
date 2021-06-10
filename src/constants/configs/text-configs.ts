@@ -83,6 +83,20 @@ export const getDecrementHpTextConfig = (hp: number): TextConfig => {
         style: new TextStyle({
             fontSize: 44,
             fill: '#ff0000',
+            stroke: '#000000',
+            strokeThickness: 2,
+        }),
+    };
+};
+
+export const getIncrementMoneyTextConfig = (money: number): TextConfig => {
+    return {
+        text: localization.t(phrases.increment_money, { money }),
+        style: new TextStyle({
+            fontSize: 44,
+            fill: '#00ff00',
+            stroke: '#000000',
+            strokeThickness: 2,
         }),
     };
 };
