@@ -2,6 +2,7 @@ import { lego } from '@armathai/lego';
 import { Graphics } from '@pixi/graphics';
 import { InteractionEvent } from '@pixi/interaction';
 import { Rectangle } from '@pixi/math';
+import gsap from 'gsap/all';
 import { BotModelEvent } from '../events/model';
 import { BotViewEvent } from '../events/view';
 import { Container } from '../utils/container';
@@ -19,8 +20,19 @@ export class BotView extends Container {
         this.hitArea = new Rectangle(-hitArea.width / 2, -hitArea.height / 2, hitArea.width, hitArea.height);
     }
 
-    protected $onHpUpdate(hp: number): void {
-        void hp;
+    protected $onHpUpdate(newHP: number, oldHP: number): void {
+        gsap.killTweensOf(this.scale);
+        this.scale.set(1);
+        if (oldHP > newHP) {
+            gsap.to(this.scale, {
+                duration: 0.1,
+                x: 1.03,
+                y: 1.03,
+                yoyo: true,
+                repeat: 1,
+                ease: 'bounce.out',
+            });
+        }
     }
 
     protected $build(): void {
