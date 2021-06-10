@@ -16,5 +16,8 @@
     },
     "money": {
         "en": "Money %{money}"
+    },
+    "decrement_hp": {
+        "en": "-%{hp}"
     }
 }

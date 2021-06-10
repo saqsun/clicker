@@ -76,3 +76,13 @@ export const getMoneyTextConfig = (): TextConfig => {
         }),
     };
 };
+
+export const getDecrementHpTextConfig = (hp: number): TextConfig => {
+    return {
+        text: localization.t(phrases.decrement_hp, { hp }),
+        style: new TextStyle({
+            fontSize: 44,
+            fill: '#ff0000',
+        }),
+    };
+};
