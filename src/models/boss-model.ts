@@ -52,7 +52,7 @@ export class BossModel extends BotModel {
         this._time = BossModel._reviveTimer;
         this._reviveDelayRunnable = loopRunnable(1, () => {
             this._time -= 1;
-            if (this._time === -1) {
+            if (this._time === 0) {
                 this._reviveTimerComplete = true;
             }
         });
