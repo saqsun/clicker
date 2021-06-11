@@ -27,6 +27,7 @@ import { BotModel } from '../models/bot-model';
 import { store } from '../models/store';
 import { getDisplayObjectByProperty, makeText } from '../utils';
 import { randomInt } from '../utils/number/random-int';
+import { MenuView } from './menu-view';
 
 export class UIView extends PixiGrid {
     private _hp: Text;
@@ -34,6 +35,7 @@ export class UIView extends PixiGrid {
     private _wave: Text;
     private _damage: Text;
     private _money: Text;
+    private _menu: MenuView;
 
     public constructor() {
         super();
@@ -72,6 +74,10 @@ export class UIView extends PixiGrid {
 
         this._money = makeText(getMoneyTextConfig());
         this.setChild('money', this._money);
+
+        const menuArea = this.getCellByName('menu').area;
+        this._menu = new MenuView(menuArea.width, menuArea.height);
+        this.setChild('menu', this._menu);
     }
 
     private _onLevelUpdate(): void {
