@@ -36,23 +36,27 @@ export const getUIGridPortraitConfig = (): ICellConfig => {
         cells: [
             {
                 name: 'level',
-                bounds: { x: 0, width: 0.5, y: 0, height: 0.15 },
+                bounds: { x: 0, width: 0.5, y: 0, height: 0.035 },
             },
             {
                 name: 'wave',
-                bounds: { x: 0.5, width: 0.5, y: 0, height: 0.15 },
-            },
-            {
-                name: 'hp',
-                bounds: { x: 0, y: 0.15, height: 0.05 },
+                bounds: { x: 0, width: 0.5, y: 0.035, height: 0.035 },
             },
             {
                 name: 'damage',
-                bounds: { x: 0, y: 0.8, height: 0.1 },
+                bounds: { x: 0.5, width: 0.5, y: 0, height: 0.035 },
             },
             {
                 name: 'money',
-                bounds: { x: 0, y: 0.9, height: 0.1 },
+                bounds: { x: 0.5, width: 0.5, y: 0.035, height: 0.035 },
+            },
+            {
+                name: 'hp',
+                bounds: { x: 0, y: 0.07, height: 0.035 },
+            },
+            {
+                name: 'menu',
+                bounds: { x: 0, y: 0.705, height: 1 - 0.705 },
             },
         ],
     };
