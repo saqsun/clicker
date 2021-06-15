@@ -25,6 +25,10 @@ export const getUIGridLandscapeConfig = (): ICellConfig => {
                 name: 'money',
                 bounds: { x: 0, y: 0.93, height: 0.07 },
             },
+            {
+                name: 'menu',
+                bounds: { x: 0, y: 0.705, height: 1 - 0.705 },
+            },
         ],
     };
 };
