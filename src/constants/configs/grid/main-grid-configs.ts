@@ -6,6 +6,7 @@ export const getMainGridLandscapeConfig = (): ICellConfig => {
         name: 'main',
         // debug: { color: 0xd95027 },
         bounds: game.viewBounds,
+        padding: { y: 0.05 },
     };
 };
 
@@ -14,5 +15,6 @@ export const getMainGridPortraitConfig = (): ICellConfig => {
         name: 'main',
         // debug: { color: 0xd95027 },
         bounds: game.viewBounds,
+        padding: { y: 0.05 },
     };
 };
