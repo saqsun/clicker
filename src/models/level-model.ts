@@ -33,6 +33,13 @@ export class LevelModel extends ObservableModel {
         this.nextBot();
     }
 
+    public revive(): void {
+        this.destroy();
+        this._botIndex = -1;
+
+        this.nextBot();
+    }
+
     public destroy(): void {
         this.destroyBot();
         this.destroyBoss();

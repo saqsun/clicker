@@ -35,6 +35,10 @@ export class BossModel extends BotModel {
         this._startReviveTimer();
     }
 
+    public destroy(): void {
+        this._stopReviveTimer();
+    }
+
     public revive(): void {
         this._stopReviveTimer();
         this._reviveTimerComplete = false;

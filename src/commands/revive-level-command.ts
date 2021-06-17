@@ -1,6 +1,6 @@
 import { store } from '../models/store';
 
-export const reviveBossCommand = (): void => {
+export const reviveLevelCommand = (): void => {
     const { level } = store.game;
-    level.reviveBoss();
+    level.revive();
 };
