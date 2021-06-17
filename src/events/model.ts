@@ -13,6 +13,7 @@ export enum BotModelEvent {
 
 export enum FriendModelEvent {
     indexUpdate = 'FriendModelIndexUpdate',
+    iconColorUpdate = 'FriendModelIconColorUpdate',
     isActiveUpdate = 'FriendModelIsActiveUpdate',
     costUpdate = 'FriendModelCostUpdate',
     damageUpdate = 'FriendModelDamageUpdate',

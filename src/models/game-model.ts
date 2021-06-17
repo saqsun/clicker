@@ -29,6 +29,14 @@ export class GameModel extends ObservableModel {
         this.nextLevel();
     }
 
+    public reviveLevel(): void {
+        this._level && this._level.destroy();
+        this._level = null;
+        const levelsConfig = this._levelConfigs[this._levelIndex];
+        this._level = new LevelModel(levelsConfig);
+        this._level.initialize();
+    }
+
     public initializeFriends(): void {
         this._friends = new FriendsModel(this._friendsConfigs);
         this._friends.initialize();
