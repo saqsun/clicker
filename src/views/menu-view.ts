@@ -1,31 +1,76 @@
-import { Texture } from '@pixi/core';
-import { Sprite } from '@pixi/sprite';
+import { lego } from '@armathai/lego';
+import { Graphics } from '@pixi/graphics';
 import { Scrollbox } from 'pixi-scrollbox';
+import { FriendsModelEvent } from '../events/model';
+import { FriendModel } from '../models/friend-model';
 import { Container } from '../utils/container';
+import { MenuItemView } from './menu-item-view';
 
 export class MenuView extends Container {
-    public constructor(private _w: number, private _h: number) {
+    private _w: number;
+    private _h: number;
+    private _bg: Graphics;
+    private _menuItems: MenuItemView[] = [];
+
+    public constructor(_w: number, _h: number) {
         super();
         this.name = 'MenuView';
+        this._w = Math.max(200, Math.min(900, _w));
+        this._h = _h;
         this._build();
+
+        lego.event.on(FriendsModelEvent.friendsUpdate, this._onFriendsUpdate, this);
+        lego.event.on(FriendsModelEvent.activatableFriendsUpdate, this._onActivatableFriendsUpdate, this);
+        lego.event.on(FriendsModelEvent.upgradeableFriendsUpdate, this._onUpgradeableFriendsUpdate, this);
+        lego.event.on(FriendsModelEvent.passiveFriendsUpdate, this._onPassiveFriendsUpdate, this);
     }
 
     private _build(): void {
-        const scrollbox = new Scrollbox({ boxWidth: this._w, boxHeight: this._h, scrollbarSize: 0 });
-        for (let i = 0; i < 10; i += 1) {
-            const sprite = scrollbox.content.addChild(new Sprite(Texture.WHITE));
-            sprite.width = this._w;
-            sprite.height = this._h / 3.5;
-            sprite.y = sprite.height * i;
-            sprite.tint = i % 2 === 0 ? 0xff0000 : 0x0000ff;
-            this.addChild(scrollbox);
-        }
+        this._buildBg();
+    }
 
+    private _buildBg(): void {
+        const graphics = new Graphics();
+        graphics.beginFill(0x665f4f);
+        graphics.drawRoundedRect(0, 0, this._w, this._h, 30);
+        graphics.endFill();
+        this.addChild((this._bg = graphics));
+    }
+
+    private _onFriendsUpdate(friendModels: FriendModel[]): void {
+        const scrollbox = new Scrollbox({ boxWidth: this._w - 30, boxHeight: this._h - 30, scrollbarSize: 0 });
+        friendModels.forEach((friendModel, i) => {
+            const sprite = scrollbox.content.addChild(
+                new MenuItemView(this._w - 30, 100, friendModel.name, friendModel.uuid),
+            );
+            // sprite.x += 15;
+            sprite.y = (sprite.height + 5) * i;
+            this._menuItems.push(sprite);
+            this.addChild(scrollbox);
+        });
+        scrollbox.x = this._bg.x + 15;
+        scrollbox.y = this._bg.y + 15;
         scrollbox.update();
-        // const graphics = new Graphics();
-        // graphics.beginFill(0xaabbee);
-        // graphics.drawRect(-200, -200, 400, 400);
-        // graphics.endFill();
-        // this.addChild(graphics);
+    }
+
+    private _onActivatableFriendsUpdate(friendModels: FriendModel[]): void {
+        friendModels.forEach((friendModel) => {
+            const menuItem = this._menuItems.find((item) => item.friendUuid === friendModel.uuid);
+            menuItem.activatedActivateButton();
+        });
+    }
+
+    private _onUpgradeableFriendsUpdate(friendModels: FriendModel[]): void {
+        friendModels.forEach((friendModel) => {
+            const menuItem = this._menuItems.find((item) => item.friendUuid === friendModel.uuid);
+            menuItem.activatedUpgradeButton();
+        });
+    }
+
+    private _onPassiveFriendsUpdate(friendModels: FriendModel[]): void {
+        friendModels.forEach((friendModel) => {
+            const menuItem = this._menuItems.find((item) => item.friendUuid === friendModel.uuid);
+            menuItem.activatedPassiveButton();
+        });
     }
 }

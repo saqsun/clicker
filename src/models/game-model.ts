@@ -1,17 +1,23 @@
+import { FriendsModel } from './friends-model';
 import { LevelModel } from './level-model';
 import { ObservableModel } from './observable-model';
 
 export class GameModel extends ObservableModel {
     private _level: LevelModel = null;
+    private _friends: FriendsModel = null;
     private _levelIndex = -1;
 
-    public constructor(private _levelConfigs: LevelConfig[]) {
+    public constructor(private _levelConfigs: LevelConfig[], private _friendsConfigs: FriendConfigs) {
         super('GameModel');
-        this.makeObservable('_level');
+        this.makeObservable('_level', '_friends');
     }
 
     public get level(): LevelModel {
         return this._level;
+    }
+
+    public get friends(): FriendsModel {
+        return this._friends;
     }
 
     public get levelIndex(): number {
@@ -19,7 +25,13 @@ export class GameModel extends ObservableModel {
     }
 
     public initialize(): void {
+        this.initializeFriends();
         this.nextLevel();
+    }
+
+    public initializeFriends(): void {
+        this._friends = new FriendsModel(this._friendsConfigs);
+        this._friends.initialize();
     }
 
     public hasNextLevel(): boolean {

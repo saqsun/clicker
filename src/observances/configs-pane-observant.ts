@@ -2,13 +2,15 @@ import { lego } from '@armathai/lego';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 import { Pane } from 'tweakpane';
+import { friendConfigs } from '../constants/configs/friend-configs';
 import { levelConfigs } from '../constants/configs/level-configs';
 import { playerConfig } from '../constants/configs/player-configs';
-import { PlayerModelEvent } from '../events/model';
+import { FriendModelEvent, PlayerModelEvent } from '../events/model';
 
 export class ConfigsPaneObservant {
     private _pane: ExtendedPane;
     private _levelsPane: ExtendedPane;
+    private _friendsPane: ExtendedPane;
     private _playerPane: ExtendedPane;
 
     public constructor() {
@@ -18,11 +20,12 @@ export class ConfigsPaneObservant {
             expanded: true,
         });
         const tab = this._pane.addTab({
-            pages: [{ title: 'Levels' }, { title: 'Player' }],
+            pages: [{ title: 'Levels' }, { title: 'Player' }, { title: 'Friends' }],
         });
-        [this._levelsPane, this._playerPane] = tab.pages;
+        [this._levelsPane, this._playerPane, this._friendsPane] = tab.pages;
         this._addPlayerBindings();
         this._addLevelsBindings();
+        this._addFriendsBindings();
         this._addActionBindings();
 
         this._pane.on('change', () => {
@@ -39,6 +42,8 @@ export class ConfigsPaneObservant {
         }
 
         lego.event.on(PlayerModelEvent.moneyUpdate, this._onPlayerMoneyUpdate, this);
+        lego.event.on(FriendModelEvent.costUpdate, this._onFriendCostUpdate, this);
+        lego.event.on(FriendModelEvent.damageUpdate, this._onFriendDamageUpdate, this);
     }
 
     private static _setStyle(): void {
@@ -53,6 +58,24 @@ export class ConfigsPaneObservant {
     private _addPlayerBindings(): void {
         this._playerPane.addInput(playerConfig, 'damage', { step: 1 });
         this._playerPane.addInput(playerConfig, 'money', { step: 1 });
+    }
+
+    private _addFriendsBindings(): void {
+        friendConfigs.forEach((l, i) => {
+            const levelFolder = <ExtendedPane>this._friendsPane.addFolder({
+                title: `${l.name}`,
+                expanded: i === 0, // optional
+            });
+            // const tab = levelFolder.addTab({
+            //     pages: [{ title: 'Bots' }, { title: 'Boss' }],
+            // });
+            levelFolder.addInput(l, 'damage', { step: 1 });
+            levelFolder.addInput(l, 'cost', { step: 1 });
+            levelFolder.addInput(l, 'activationLevel', { step: 1 });
+            levelFolder.addInput(l, 'actionTime', { step: 1 });
+
+            this._friendsPane.addSeparator();
+        });
     }
 
     private _addLevelsBindings(): void {
@@ -121,6 +144,7 @@ export class ConfigsPaneObservant {
         const zip = new JSZip();
         zip.file('level-configs.json', JSON.stringify(levelConfigs));
         zip.file('player-configs.json', JSON.stringify(playerConfig));
+        zip.file('friends-configs.json', JSON.stringify(friendConfigs));
         const blob = await zip.generateAsync({ type: 'blob' });
         saveAs(blob, 'game-configs.zip');
 
@@ -139,5 +163,13 @@ export class ConfigsPaneObservant {
         this._pane.refresh();
 
         // this._playerPane.addInput(playerConfig, 'money', { step: 1 });
+    }
+
+    private _onFriendCostUpdate(): void {
+        this._pane.refresh();
+    }
+
+    private _onFriendDamageUpdate(): void {
+        this._pane.refresh();
     }
 }

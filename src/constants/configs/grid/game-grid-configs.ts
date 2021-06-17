@@ -7,7 +7,11 @@ export const getGameGridLandscapeConfig = (): ICellConfig => {
         cells: [
             {
                 name: 'level',
-                bounds: { x: 0.2, y: 0.16, width: 0.6, height: 0.7 },
+                bounds: { x: 0.2, y: 0.16, width: 0.6, height: 0.5 },
+            },
+            {
+                name: 'friends',
+                bounds: { x: 0.2, width: 0.6, height: 0.2 },
             },
         ],
     };
@@ -20,7 +24,11 @@ export const getGameGridPortraitConfig = (): ICellConfig => {
         cells: [
             {
                 name: 'level',
-                bounds: { x: 0, y: 0.105, width: 1, height: 0.6 },
+                bounds: { x: 0, y: 0.105, width: 1, height: 0.4 },
+            },
+            {
+                name: 'friends',
+                bounds: { x: 0, width: 1, height: 0.2 },
             },
         ],
     };

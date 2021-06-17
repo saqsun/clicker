@@ -3,5 +3,5 @@ import { initializeGameModelCommand } from './initialize-play-model-command';
 import { initializePlayerModelCommand } from './initialize-player-model-command';
 
 export const initializeModelsCommand = (): void => {
-    lego.command.execute(initializePlayerModelCommand).execute(initializeGameModelCommand);
+    lego.command.execute(initializeGameModelCommand).execute(initializePlayerModelCommand);
 };

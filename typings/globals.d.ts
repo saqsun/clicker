@@ -75,4 +75,14 @@ type LevelConfig = {
     boss: BossConfig;
 };
 
+type FriendConfigs = FriendConfig[];
+
+type FriendConfig = {
+    cost: number;
+    damage: number;
+    activationLevel: number;
+    actionTime: number;
+    name: string;
+};
+
 type Callback = EventEmitter.ListenerFn;
