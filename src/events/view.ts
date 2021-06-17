@@ -9,3 +9,8 @@ export enum BotViewEvent {
 export enum BossViewEvent {
     click = 'BossViewEventClick',
 }
+
+export enum MenuItemViewEvent {
+    activeButtonClick = 'MenuItemViewEventActiveButtonClick',
+    upgradeButtonClick = 'MenuItemViewEventUpgradeButtonClick',
+}

@@ -11,8 +11,26 @@ export enum BotModelEvent {
     defeatUpdate = 'BotModelDefeatUpdate',
 }
 
+export enum FriendModelEvent {
+    indexUpdate = 'FriendModelIndexUpdate',
+    isActiveUpdate = 'FriendModelIsActiveUpdate',
+    costUpdate = 'FriendModelCostUpdate',
+    damageUpdate = 'FriendModelDamageUpdate',
+    nameUpdate = 'FriendModelNameUpdate',
+    activationLevelUpdate = 'FriendModelActivationLevelUpdate',
+    stateUpdate = 'FriendModelStateUpdate',
+}
+
+export enum FriendsModelEvent {
+    friendsUpdate = 'FriendsModelFriendsUpdate',
+    upgradeableFriendsUpdate = 'FriendsModelUpgradeableFriendsUpdate',
+    activatableFriendsUpdate = 'FriendsModelActivatableFriendsUpdate',
+    passiveFriendsUpdate = 'FriendsModelPassiveFriendsUpdate',
+}
+
 export enum GameModelEvent {
     levelUpdate = 'GameModelLevelUpdate',
+    friendsUpdate = 'GameModelFriendsUpdate',
     levelIndexUpdate = 'GameModelLevelIndexUpdate',
 }
 
