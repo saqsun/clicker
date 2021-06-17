@@ -6,6 +6,6 @@ export const onPlayerMoneyUpdateCommand = (money: number): void => {
     if (store.game.friends) {
         store.game.friends.updateActivatableFriends(levelIndex, money);
         store.game.friends.updateUpgradeableFriends(money);
-        store.game.friends.updatePassiveFriendsFriends(money);
+        store.game.friends.updatePassiveFriendsFriends(levelIndex, money);
     }
 };

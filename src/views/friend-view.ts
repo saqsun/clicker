@@ -10,7 +10,7 @@ export class FriendView extends Graphics {
         this.visible = friendModel.isActive;
         this._uuid = friendModel.uuid;
 
-        this.beginFill(Math.floor(Math.random() * 16777215), 1);
+        this.beginFill(friendModel.iconColor, 1);
         this.drawCircle(0, 0, 50);
         this.endFill();
     }
