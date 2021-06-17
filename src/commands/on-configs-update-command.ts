@@ -3,9 +3,13 @@ import { store } from '../models/store';
 
 export const onConfigsUpdateCommand = (): void => {
     const { player, game } = store;
-    const { friends } = game;
+    const { friends, levelIndex } = game;
     player.damage = playerConfig.damage;
     player.money = playerConfig.money;
 
     friends.updateConfig();
+
+    store.game.friends.updateActivatableFriends(levelIndex, playerConfig.money);
+    store.game.friends.updateUpgradeableFriends(playerConfig.money);
+    store.game.friends.updatePassiveFriendsFriends(levelIndex, playerConfig.money);
 };

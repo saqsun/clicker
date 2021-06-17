@@ -54,9 +54,9 @@ export class FriendsModel extends ObservableModel {
         });
     }
 
-    public updatePassiveFriendsFriends(money: number): void {
+    public updatePassiveFriendsFriends(level: number, money: number): void {
         this._passiveFriends = this._friends.filter((friend) => {
-            return friend.cost > money;
+            return (!friend.isActive && friend.activationLevel > level + 1) || friend.cost > money;
         });
     }
 
