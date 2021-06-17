@@ -15,6 +15,7 @@ export class FriendModel extends ObservableModel {
     private _actionTime: number;
     private _name: string;
     private _isActive: boolean;
+    private _iconColor: number = Math.floor(Math.random() * 16777215);
     private _state: FriendState = FriendState.unknown;
     private _actionRunnable: Runnable;
 
@@ -32,6 +33,10 @@ export class FriendModel extends ObservableModel {
 
     public get index(): number {
         return this._index;
+    }
+
+    public get iconColor(): number {
+        return this._iconColor;
     }
 
     public get isActive(): boolean {

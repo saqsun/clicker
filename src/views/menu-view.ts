@@ -1,8 +1,9 @@
 import { lego } from '@armathai/lego';
 import { Graphics } from '@pixi/graphics';
 import { Scrollbox } from 'pixi-scrollbox';
-import { FriendsModelEvent } from '../events/model';
+import { FriendModelEvent, FriendsModelEvent } from '../events/model';
 import { FriendModel } from '../models/friend-model';
+import { store } from '../models/store';
 import { Container } from '../utils/container';
 import { MenuItemView } from './menu-item-view';
 
@@ -23,6 +24,12 @@ export class MenuView extends Container {
         lego.event.on(FriendsModelEvent.activatableFriendsUpdate, this._onActivatableFriendsUpdate, this);
         lego.event.on(FriendsModelEvent.upgradeableFriendsUpdate, this._onUpgradeableFriendsUpdate, this);
         lego.event.on(FriendsModelEvent.passiveFriendsUpdate, this._onPassiveFriendsUpdate, this);
+        lego.event.on(FriendModelEvent.damageUpdate, this._onFriendDamageUpdateUpdate, this);
+        lego.event.on(FriendModelEvent.costUpdate, this._onFriendCostUpdateUpdate, this);
+    }
+
+    public getItemByIndex(index: number): MenuItemView {
+        return this._menuItems[index];
     }
 
     private _build(): void {
@@ -41,7 +48,15 @@ export class MenuView extends Container {
         const scrollbox = new Scrollbox({ boxWidth: this._w - 30, boxHeight: this._h - 30, scrollbarSize: 0 });
         friendModels.forEach((friendModel, i) => {
             const sprite = scrollbox.content.addChild(
-                new MenuItemView(this._w - 30, 100, friendModel.name, friendModel.uuid),
+                new MenuItemView(
+                    this._w - 30,
+                    100,
+                    friendModel.damage,
+                    friendModel.cost,
+                    friendModel.name,
+                    friendModel.uuid,
+                    friendModel.iconColor,
+                ),
             );
             // sprite.x += 15;
             sprite.y = (sprite.height + 5) * i;
@@ -72,5 +87,17 @@ export class MenuView extends Container {
             const menuItem = this._menuItems.find((item) => item.friendUuid === friendModel.uuid);
             menuItem.activatedPassiveButton();
         });
+    }
+
+    private _onFriendDamageUpdateUpdate(damage: number, preDamage: number, uuid: string): void {
+        const friendModel = store.game.friends.getFriendByUuid(uuid);
+        const menuItem = this.getItemByIndex(friendModel.index);
+        menuItem.updateDmg(damage);
+    }
+
+    private _onFriendCostUpdateUpdate(cost: number, preCost: number, uuid: string): void {
+        const friendModel = store.game.friends.getFriendByUuid(uuid);
+        const menuItem = this.getItemByIndex(friendModel.index);
+        menuItem.updateCost(cost);
     }
 }
