@@ -15,7 +15,7 @@ export class BossView extends BotView {
     protected $build(): void {
         const graphics = new Graphics();
         graphics.beginFill(Math.floor(Math.random() * 16777215));
-        graphics.drawCircle(0, 0, 300);
+        graphics.drawCircle(0, 0, 200);
         graphics.endFill();
         this.addChild(graphics);
     }

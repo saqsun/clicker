@@ -2,7 +2,7 @@ import { ICellConfig } from '@armathai/pixi-grid';
 
 export const getUIGridLandscapeConfig = (): ICellConfig => {
     return {
-        debug: { color: 0x4287f5 },
+        debug: { color: 0xff0000 },
         name: 'ui',
         cells: [
             {
@@ -35,9 +35,13 @@ export const getUIGridLandscapeConfig = (): ICellConfig => {
 
 export const getUIGridPortraitConfig = (): ICellConfig => {
     return {
-        debug: { color: 0x4287f5 },
+        debug: { color: 0xff0000 },
         name: 'ui',
         cells: [
+            {
+                name: 'level',
+                bounds: { x: 0, width: 0.5, y: 0, height: 0.035 },
+            },
             {
                 name: 'level',
                 bounds: { x: 0, width: 0.5, y: 0, height: 0.035 },
@@ -60,7 +64,7 @@ export const getUIGridPortraitConfig = (): ICellConfig => {
             },
             {
                 name: 'menu',
-                bounds: { x: 0, y: 0.705, height: 1 - 0.705 },
+                bounds: { x: 0, y: 0.6 },
             },
         ],
     };

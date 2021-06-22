@@ -17,7 +17,7 @@ export class ConfigsPaneObservant {
         ConfigsPaneObservant._setStyle();
         this._pane = <ExtendedPane>new Pane({
             title: 'Configs',
-            expanded: true,
+            expanded: false,
         });
         const tab = this._pane.addTab({
             pages: [{ title: 'Levels' }, { title: 'Player' }, { title: 'Friends' }],

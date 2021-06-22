@@ -96,6 +96,10 @@ export class FriendModel extends ObservableModel {
         this._damage = this._config.damage;
         this._activationLevel = this._config.activationLevel;
         this._actionTime = this._config.actionTime;
+        if (!!this._actionRunnable) {
+            this.stopAction();
+            this.startAction();
+        }
     }
 
     public startAction(): void {
