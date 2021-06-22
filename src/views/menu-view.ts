@@ -34,6 +34,7 @@ export class MenuView extends Container {
 
     private _build(): void {
         this._buildBg();
+        this._buildPlayerItem();
     }
 
     private _buildBg(): void {
@@ -42,6 +43,10 @@ export class MenuView extends Container {
         graphics.drawRoundedRect(0, 0, this._w, this._h, 30);
         graphics.endFill();
         this.addChild((this._bg = graphics));
+    }
+
+    private _buildPlayerItem(): void {
+        //
     }
 
     private _onFriendsUpdate(friendModels: FriendModel[]): void {
