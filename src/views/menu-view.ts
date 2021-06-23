@@ -1,7 +1,7 @@
 import { lego } from '@armathai/lego';
 import { Graphics } from '@pixi/graphics';
 import { Scrollbox } from 'pixi-scrollbox';
-import { FriendModelEvent, FriendsModelEvent } from '../events/model';
+import { FriendModelEvent, FriendsModelEvent, PlayerModelEvent } from '../events/model';
 import { FriendModel } from '../models/friend-model';
 import { store } from '../models/store';
 import { Container } from '../utils/container';
@@ -12,6 +12,7 @@ export class MenuView extends Container {
     private _h: number;
     private _bg: Graphics;
     private _menuItems: MenuItemView[] = [];
+    private _playerItem: MenuItemView;
 
     public constructor(_w: number, _h: number) {
         super();
@@ -26,7 +27,9 @@ export class MenuView extends Container {
         lego.event.on(FriendsModelEvent.passiveFriendsUpdate, this._onPassiveFriendsUpdate, this);
         lego.event.on(FriendModelEvent.damageUpdate, this._onFriendDamageUpdateUpdate, this);
         lego.event.on(FriendModelEvent.costUpdate, this._onFriendCostUpdateUpdate, this);
-        // lego.event.on(PlayerModelEvent.updateCostUpdate, this._onPlayerUpdateCostUpdate, this);
+        lego.event.on(PlayerModelEvent.updateCostUpdate, this._onPlayerUpdateCostUpdate, this);
+        lego.event.on(PlayerModelEvent.damageUpdate, this._onPlayerDamageUpdate, this);
+        lego.event.on(PlayerModelEvent.isUpgradeableUpdate, this._onPlayerIsUpgradeableUpdate, this);
     }
 
     public getItemByIndex(index: number): MenuItemView {
@@ -52,7 +55,7 @@ export class MenuView extends Container {
             this._w - 30,
             100,
             playerModel.damage,
-            playerModel.updateCost,
+            0,
             'player',
             playerModel.uuid,
             0x000000,
@@ -61,7 +64,7 @@ export class MenuView extends Container {
         playerItem.x = 15;
         playerItem.y = 15;
 
-        this.addChild(playerItem);
+        this.addChild((this._playerItem = playerItem));
     }
 
     private _onFriendsUpdate(friendModels: FriendModel[]): void {
@@ -119,5 +122,24 @@ export class MenuView extends Container {
         const friendModel = store.game.friends.getFriendByUuid(uuid);
         const menuItem = this.getItemByIndex(friendModel.index);
         menuItem.updateCost(cost);
+    }
+
+    private _onPlayerUpdateCostUpdate(cost: number): void {
+        const menuItem = this._playerItem;
+        menuItem.updateCost(cost);
+    }
+
+    private _onPlayerDamageUpdate(dmg: number): void {
+        const menuItem = this._playerItem;
+        menuItem.updateDmg(dmg);
+    }
+
+    private _onPlayerIsUpgradeableUpdate(isUpgradeable: boolean): void {
+        const menuItem = this._playerItem;
+        if (isUpgradeable) {
+            menuItem.activatedUpgradeButton();
+        } else {
+            menuItem.activatedPassiveButton();
+        }
     }
 }
