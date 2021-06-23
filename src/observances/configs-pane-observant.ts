@@ -58,6 +58,8 @@ export class ConfigsPaneObservant {
     private _addPlayerBindings(): void {
         this._playerPane.addInput(playerConfig, 'damage', { step: 1 });
         this._playerPane.addInput(playerConfig, 'money', { step: 1 });
+        this._playerPane.addInput(playerConfig, 'updateCost', { step: 1 });
+        this._playerPane.addInput(playerConfig, 'dmgPlus', { step: 1 });
     }
 
     private _addFriendsBindings(): void {
@@ -73,6 +75,7 @@ export class ConfigsPaneObservant {
             levelFolder.addInput(l, 'cost', { step: 1 });
             levelFolder.addInput(l, 'activationLevel', { step: 1 });
             levelFolder.addInput(l, 'actionTime', { step: 1 });
+            levelFolder.addInput(l, 'dmgPlus', { step: 1 });
 
             this._friendsPane.addSeparator();
         });

@@ -56,7 +56,7 @@ interface Document {
     webkitHidden?: string;
 }
 
-type PlayerConfig = { damage: number; money: number };
+type PlayerConfig = { damage: number; money: number; updateCost: number; dmgPlus: number };
 
 type BotConfig = {
     count: number;
@@ -83,6 +83,7 @@ type FriendConfig = {
     activationLevel: number;
     actionTime: number;
     name: string;
+    dmgPlus: number;
 };
 
 type Callback = EventEmitter.ListenerFn;

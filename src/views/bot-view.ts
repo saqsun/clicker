@@ -50,6 +50,7 @@ export class BotView extends Container {
     }
 
     protected $onPointerDown(e: InteractionEvent): void {
+        // console.warn(e);
         e.data.isPrimary && lego.event.emit(BotViewEvent.click);
     }
 }

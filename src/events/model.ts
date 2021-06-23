@@ -47,6 +47,7 @@ export enum ObservableModelEvent {
 
 export enum PlayerModelEvent {
     damageUpdate = 'PlayerModelDamageUpdate',
+    updateCostUpdate = 'PlayerModelUpdateCostUpdate',
     moneyUpdate = 'PlayerModelMoneyUpdate',
 }
 

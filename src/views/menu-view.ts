@@ -26,6 +26,7 @@ export class MenuView extends Container {
         lego.event.on(FriendsModelEvent.passiveFriendsUpdate, this._onPassiveFriendsUpdate, this);
         lego.event.on(FriendModelEvent.damageUpdate, this._onFriendDamageUpdateUpdate, this);
         lego.event.on(FriendModelEvent.costUpdate, this._onFriendCostUpdateUpdate, this);
+        // lego.event.on(PlayerModelEvent.updateCostUpdate, this._onPlayerUpdateCostUpdate, this);
     }
 
     public getItemByIndex(index: number): MenuItemView {
@@ -46,11 +47,25 @@ export class MenuView extends Container {
     }
 
     private _buildPlayerItem(): void {
-        //
+        const playerModel = store.player;
+        const playerItem = new MenuItemView(
+            this._w - 30,
+            100,
+            playerModel.damage,
+            playerModel.updateCost,
+            'player',
+            playerModel.uuid,
+            0x000000,
+        );
+
+        playerItem.x = 15;
+        playerItem.y = 15;
+
+        this.addChild(playerItem);
     }
 
     private _onFriendsUpdate(friendModels: FriendModel[]): void {
-        const scrollbox = new Scrollbox({ boxWidth: this._w - 30, boxHeight: this._h - 30, scrollbarSize: 0 });
+        const scrollbox = new Scrollbox({ boxWidth: this._w - 30, boxHeight: this._h - 145, scrollbarSize: 0 });
         friendModels.forEach((friendModel, i) => {
             const sprite = scrollbox.content.addChild(
                 new MenuItemView(
@@ -69,7 +84,7 @@ export class MenuView extends Container {
             this.addChild(scrollbox);
         });
         scrollbox.x = this._bg.x + 15;
-        scrollbox.y = this._bg.y + 15;
+        scrollbox.y = this._bg.y + 130;
         scrollbox.update();
     }
 
