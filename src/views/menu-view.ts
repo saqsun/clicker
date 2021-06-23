@@ -26,10 +26,12 @@ export class MenuView extends Container {
         lego.event.on(FriendsModelEvent.upgradeableFriendsUpdate, this._onUpgradeableFriendsUpdate, this);
         lego.event.on(FriendsModelEvent.passiveFriendsUpdate, this._onPassiveFriendsUpdate, this);
         lego.event.on(FriendModelEvent.damageUpdate, this._onFriendDamageUpdateUpdate, this);
+        lego.event.on(FriendModelEvent.dmgPlusUpdate, this._onFriendDmgPlusUpdateUpdate, this);
         lego.event.on(FriendModelEvent.costUpdate, this._onFriendCostUpdateUpdate, this);
         lego.event.on(PlayerModelEvent.updateCostUpdate, this._onPlayerUpdateCostUpdate, this);
         lego.event.on(PlayerModelEvent.damageUpdate, this._onPlayerDamageUpdate, this);
         lego.event.on(PlayerModelEvent.isUpgradeableUpdate, this._onPlayerIsUpgradeableUpdate, this);
+        lego.event.on(PlayerModelEvent.dmgPlusUpdate, this._onPlayerDmgPlusUpdateUpdate, this);
     }
 
     public getItemByIndex(index: number): MenuItemView {
@@ -56,6 +58,7 @@ export class MenuView extends Container {
             100,
             playerModel.damage,
             0,
+            playerModel.dmgPlus,
             'player',
             playerModel.uuid,
             0x000000,
@@ -76,6 +79,7 @@ export class MenuView extends Container {
                     100,
                     friendModel.damage,
                     friendModel.cost,
+                    friendModel.dmgPlus,
                     friendModel.name,
                     friendModel.uuid,
                     friendModel.iconColor,
@@ -118,6 +122,13 @@ export class MenuView extends Container {
         menuItem.updateDmg(damage);
     }
 
+    private _onFriendDmgPlusUpdateUpdate(dmgPlus: number, preDmgPlus: number, uuid: string): void {
+        const friendModel = store.game.friends.getFriendByUuid(uuid);
+        const menuItem = this.getItemByIndex(friendModel.index);
+        menuItem.dmgPlus = dmgPlus;
+        menuItem.updateDmg(friendModel.damage);
+    }
+
     private _onFriendCostUpdateUpdate(cost: number, preCost: number, uuid: string): void {
         const friendModel = store.game.friends.getFriendByUuid(uuid);
         const menuItem = this.getItemByIndex(friendModel.index);
@@ -132,6 +143,13 @@ export class MenuView extends Container {
     private _onPlayerDamageUpdate(dmg: number): void {
         const menuItem = this._playerItem;
         menuItem.updateDmg(dmg);
+    }
+
+    private _onPlayerDmgPlusUpdateUpdate(dmgPlus: number): void {
+        const menuItem = this._playerItem;
+        const { player } = store;
+        menuItem.dmgPlus = dmgPlus;
+        menuItem.updateDmg(player.damage);
     }
 
     private _onPlayerIsUpgradeableUpdate(isUpgradeable: boolean): void {

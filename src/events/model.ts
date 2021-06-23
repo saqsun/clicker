@@ -16,6 +16,7 @@ export enum FriendModelEvent {
     iconColorUpdate = 'FriendModelIconColorUpdate',
     isActiveUpdate = 'FriendModelIsActiveUpdate',
     costUpdate = 'FriendModelCostUpdate',
+    dmgPlusUpdate = 'FriendModelDmgPlusUpdate',
     damageUpdate = 'FriendModelDamageUpdate',
     nameUpdate = 'FriendModelNameUpdate',
     activationLevelUpdate = 'FriendModelActivationLevelUpdate',

@@ -2,7 +2,7 @@ import { ICellConfig } from '@armathai/pixi-grid';
 
 export const getLevelGridLandscapeConfig = (): ICellConfig => {
     return {
-        debug: { color: 0xff },
+        debug: { color: 0x989494 },
         name: 'level',
         cells: [
             {
@@ -15,7 +15,7 @@ export const getLevelGridLandscapeConfig = (): ICellConfig => {
 
 export const getLevelGridPortraitConfig = (): ICellConfig => {
     return {
-        debug: { color: 0xff },
+        debug: { color: 0x989494 },
         name: 'level',
         cells: [
             {

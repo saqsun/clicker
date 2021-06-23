@@ -63,9 +63,9 @@ export class PlayerModel extends ObservableModel {
     public initialize(): void {
         this._damage = this._playerConfig.damage;
         this._isUpgradeable = false;
+        this._updateCost = this._playerConfig.updateCost;
         this._money = this._playerConfig.money;
         this._dmgPlus = this._playerConfig.dmgPlus;
-        this._updateCost = this._playerConfig.updateCost;
     }
 
     public credit(money: number): void {

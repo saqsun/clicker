@@ -2,7 +2,7 @@ import { ICellConfig } from '@armathai/pixi-grid';
 
 export const getUIGridLandscapeConfig = (): ICellConfig => {
     return {
-        debug: { color: 0xff0000 },
+        debug: { color: 0xc7d8e0 },
         name: 'ui',
         cells: [
             {
@@ -35,7 +35,7 @@ export const getUIGridLandscapeConfig = (): ICellConfig => {
 
 export const getUIGridPortraitConfig = (): ICellConfig => {
     return {
-        debug: { color: 0xff0000 },
+        debug: { color: 0xc7d8e0 },
         name: 'ui',
         cells: [
             {
