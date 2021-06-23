@@ -1,4 +1,3 @@
-import { randomInt } from '../utils/number/random-int';
 import { BossModel } from './boss-model';
 import { BotModel } from './bot-model';
 import { ObservableModel } from './observable-model';
@@ -78,16 +77,14 @@ export class LevelModel extends ObservableModel {
 
     private _calculateBotHp(): number {
         const { incrementHp, startHp } = this._botConfigs;
-        const { min, max } = incrementHp;
-        const increment = randomInt(min, max);
+        const increment = incrementHp;
         return startHp + (startHp * this._botIndex * increment) / 100;
     }
 
     private _calculateBossHp(): number {
         const startHp = this._calculateBotHp();
         const { incrementHp } = this._bossConfig;
-        const { min, max } = incrementHp;
-        const increment = randomInt(min, max);
+        const increment = incrementHp;
         return startHp + (startHp * increment) / 100;
     }
 }

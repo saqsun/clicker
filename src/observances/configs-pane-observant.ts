@@ -96,15 +96,13 @@ export class ConfigsPaneObservant {
             });
             const [botsTab, bossTab] = tab.pages;
             const { bots, boss } = l;
-
+            console.warn(bots.incrementHp);
             botsTab.addInput(bots, 'count', { disabled: true, step: 1 });
             botsTab.addInput(bots, 'startHp', { label: 'start hp', step: 1 });
-            botsTab.addInput(bots.incrementHp, 'min', { label: 'min hp increment %', step: 1 });
-            botsTab.addInput(bots.incrementHp, 'max', { label: 'max hp increment %', step: 1 });
+            botsTab.addInput(bots, 'incrementHp', { label: 'incrementHp', step: 1 });
             botsTab.addInput(bots, 'money', { label: 'money', step: 1 });
 
-            bossTab.addInput(boss.incrementHp, 'min', { label: 'min hp increment %', step: 1 });
-            bossTab.addInput(boss.incrementHp, 'max', { label: 'max hp increment %', step: 1 });
+            bossTab.addInput(boss, 'incrementHp', { label: 'incrementHp', step: 1 });
             bossTab.addInput(boss, 'money', { label: 'money', step: 1 });
 
             this._levelsPane.addSeparator();

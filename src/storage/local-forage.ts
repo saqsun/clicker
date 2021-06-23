@@ -3,7 +3,7 @@ import { levelConfigs, updateLevelConfigs } from '../constants/configs/level-con
 import { playerConfig, updatePlayerConfig } from '../constants/configs/player-configs';
 
 export class LocalForage {
-    private static _version = 1;
+    private static _version = 2;
     private _loading: boolean;
 
     public constructor() {

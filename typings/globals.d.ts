@@ -61,12 +61,12 @@ type PlayerConfig = { damage: number; money: number; updateCost: number; dmgPlus
 type BotConfig = {
     count: number;
     startHp: number;
-    incrementHp: { min: number; max: number };
+    incrementHp: number;
     money: number;
 };
 
 type BossConfig = {
-    incrementHp: { min: number; max: number };
+    incrementHp: number;
     money: number;
 };
 
