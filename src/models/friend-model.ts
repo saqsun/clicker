@@ -11,6 +11,7 @@ export enum FriendState {
 export class FriendModel extends ObservableModel {
     private _cost: number;
     private _damage: number;
+    private _dmgPlus: number;
     private _activationLevel: number;
     private _actionTime: number;
     private _name: string;
@@ -53,6 +54,14 @@ export class FriendModel extends ObservableModel {
 
     public set cost(value: number) {
         this._config.cost = this._cost = value;
+    }
+
+    public get dmgPlus(): number {
+        return this._dmgPlus;
+    }
+
+    public set dmgPlus(value: number) {
+        this._config.dmgPlus = this._dmgPlus = value;
     }
 
     public get damage(): number {

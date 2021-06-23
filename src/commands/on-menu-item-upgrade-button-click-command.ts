@@ -9,8 +9,8 @@ export const onMenuItemUpgradeButtonClickCommand = (uuid: string): void => {
         player.updateCost += Math.ceil((player.updateCost * 20) / 100);
     } else {
         const friendModel = game.friends.getFriendByUuid(uuid);
-        const { cost } = friendModel;
-        friendModel.damage += 1;
+        const { cost, dmgPlus } = friendModel;
+        friendModel.damage += dmgPlus;
         friendModel.cost += Math.ceil((cost * 20) / 100);
 
         player.credit(-cost);
