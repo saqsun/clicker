@@ -44,6 +44,10 @@ export class ConfigsPaneObservant {
         lego.event.on(PlayerModelEvent.moneyUpdate, this._onPlayerMoneyUpdate, this);
         lego.event.on(FriendModelEvent.costUpdate, this._onFriendCostUpdate, this);
         lego.event.on(FriendModelEvent.damageUpdate, this._onFriendDamageUpdate, this);
+
+        lego.event.on(PlayerModelEvent.damageUpdate, this._onPlayerDamageUpdate, this);
+        lego.event.on(PlayerModelEvent.updateCostUpdate, this._onPlayerUpdateCostUpdate, this);
+        lego.event.on(PlayerModelEvent.dmgPlusUpdate, this._onPlayerDmgPlusUpdate, this);
     }
 
     private static _setStyle(): void {
@@ -58,6 +62,8 @@ export class ConfigsPaneObservant {
     private _addPlayerBindings(): void {
         this._playerPane.addInput(playerConfig, 'damage', { step: 1 });
         this._playerPane.addInput(playerConfig, 'money', { step: 1 });
+        this._playerPane.addInput(playerConfig, 'updateCost', { step: 1 });
+        this._playerPane.addInput(playerConfig, 'dmgPlus', { step: 1 });
     }
 
     private _addFriendsBindings(): void {
@@ -73,6 +79,7 @@ export class ConfigsPaneObservant {
             levelFolder.addInput(l, 'cost', { step: 1 });
             levelFolder.addInput(l, 'activationLevel', { step: 1 });
             levelFolder.addInput(l, 'actionTime', { step: 1 });
+            levelFolder.addInput(l, 'dmgPlus', { step: 1 });
 
             this._friendsPane.addSeparator();
         });
@@ -161,8 +168,21 @@ export class ConfigsPaneObservant {
     private _onPlayerMoneyUpdate(money: number): void {
         playerConfig.money = money;
         this._pane.refresh();
+    }
 
-        // this._playerPane.addInput(playerConfig, 'money', { step: 1 });
+    private _onPlayerDamageUpdate(damage: number): void {
+        playerConfig.damage = damage;
+        this._pane.refresh();
+    }
+
+    private _onPlayerDmgPlusUpdate(dmgPlus: number): void {
+        playerConfig.dmgPlus = dmgPlus;
+        this._pane.refresh();
+    }
+
+    private _onPlayerUpdateCostUpdate(updateCost: number): void {
+        playerConfig.updateCost = updateCost;
+        this._pane.refresh();
     }
 
     private _onFriendCostUpdate(): void {
