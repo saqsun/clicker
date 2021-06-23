@@ -20,6 +20,7 @@ export class MenuItemView extends Container {
         _h: number,
         damage: number,
         cost: number,
+        private _dmgPlus: number,
         private _name: string,
         private _friendUuid: string,
         private _iconColor: number,
@@ -33,6 +34,10 @@ export class MenuItemView extends Container {
 
     public get friendUuid(): string {
         return this._friendUuid;
+    }
+
+    public set dmgPlus(value: number) {
+        this._dmgPlus = value;
     }
 
     public activatedActivateButton(): void {
@@ -68,7 +73,7 @@ export class MenuItemView extends Container {
     }
 
     public updateDmg(damage: number): void {
-        this._dmg.text = `DMG ${damage}`;
+        this._dmg.text = `DMG ${damage}/${damage + this._dmgPlus}`;
     }
 
     public updateCost(cost: number): void {
@@ -132,7 +137,7 @@ export class MenuItemView extends Container {
 
     private _buildDmg(damage: number): void {
         const dmg = makeText({
-            text: `DMG ${damage}`,
+            text: `DMG ${damage}/${damage + this._dmgPlus}`,
             x: 300,
             y: 50,
             anchor: new Point(0, 0.5),

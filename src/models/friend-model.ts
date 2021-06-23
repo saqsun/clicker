@@ -25,11 +25,12 @@ export class FriendModel extends ObservableModel {
 
         this._cost = _config.cost;
         this._damage = _config.damage;
+        this._dmgPlus = _config.dmgPlus;
         this._activationLevel = _config.activationLevel;
         this._actionTime = _config.actionTime;
         this._name = _config.name;
 
-        this.makeObservable('_state', '_isActive', '_cost', '_damage');
+        this.makeObservable('_state', '_isActive', '_cost', '_damage', '_dmgPlus');
     }
 
     public get index(): number {
@@ -103,6 +104,7 @@ export class FriendModel extends ObservableModel {
     public updateConfig(): void {
         this._cost = this._config.cost;
         this._damage = this._config.damage;
+        this._dmgPlus = this._config.dmgPlus;
         this._activationLevel = this._config.activationLevel;
         if (!!this._actionRunnable && this._actionTime != this._config.actionTime) {
             this._actionTime = this._config.actionTime;
