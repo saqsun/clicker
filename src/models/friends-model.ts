@@ -7,7 +7,7 @@ export class FriendsModel extends ObservableModel {
     private _activatableFriends: FriendModel[];
     private _passiveFriends: FriendModel[];
 
-    public constructor(private _config: FriendConfigs) {
+    public constructor(private _config: FriendsConfigs) {
         super('FriendsModel');
         this.makeObservable('_friends', '_upgradeableFriends', '_activatableFriends', '_passiveFriends');
     }

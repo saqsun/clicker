@@ -1,4 +1,4 @@
-import { friendConfigs } from '../constants/configs/friend-configs';
+import { friendsConfigs } from '../constants/configs/friends-configs';
 import { levelConfigs } from '../constants/configs/level-configs';
 import { playerConfig } from '../constants/configs/player-configs';
 import { postRunnable } from '../utils/index';
@@ -44,7 +44,7 @@ class Store extends ObservableModel {
 
     // GAME
     public initializeGameModel(): void {
-        this._game = new GameModel(levelConfigs, friendConfigs);
+        this._game = new GameModel(levelConfigs, friendsConfigs);
         postRunnable(() => {
             this._game.initialize();
         });

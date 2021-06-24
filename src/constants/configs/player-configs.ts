@@ -1,6 +1,6 @@
 export let playerConfig: PlayerConfig = {
     damage: 1,
-    money: 1,
+    money: 0,
     updateCost: 13,
     dmgPlus: 1,
 };

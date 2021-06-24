@@ -75,7 +75,7 @@ type LevelConfig = {
     boss: BossConfig;
 };
 
-type FriendConfigs = FriendConfig[];
+type FriendsConfigs = FriendConfig[];
 
 type FriendConfig = {
     cost: number;
