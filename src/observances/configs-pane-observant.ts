@@ -2,7 +2,7 @@ import { lego } from '@armathai/lego';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 import { Pane } from 'tweakpane';
-import { friendsConfigs } from '../constants/configs/friends-configs';
+import { friendsConfig } from '../constants/configs/friends-config';
 import { levelConfigs } from '../constants/configs/level-configs';
 import { playerConfig } from '../constants/configs/player-configs';
 import { FriendModelEvent, PlayerModelEvent } from '../events/model';
@@ -67,7 +67,7 @@ export class ConfigsPaneObservant {
     }
 
     private _addFriendsBindings(): void {
-        friendsConfigs.forEach((l, i) => {
+        friendsConfig.forEach((l, i) => {
             const levelFolder = <ExtendedPane>this._friendsPane.addFolder({
                 title: `${l.name}`,
                 expanded: i === 0, // optional
@@ -149,7 +149,7 @@ export class ConfigsPaneObservant {
         const zip = new JSZip();
         zip.file('level-configs.json', JSON.stringify(levelConfigs));
         zip.file('player-configs.json', JSON.stringify(playerConfig));
-        zip.file('friends-configs.json', JSON.stringify(friendsConfigs));
+        zip.file('friends-configs.json', JSON.stringify(friendsConfig));
         const blob = await zip.generateAsync({ type: 'blob' });
         saveAs(blob, 'game-configs.zip');
 

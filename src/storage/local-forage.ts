@@ -1,4 +1,5 @@
 import localforage from 'localforage';
+import { friendsConfig, updateFriendsConfig } from '../constants/configs/friends-config';
 import { levelConfigs, updateLevelConfigs } from '../constants/configs/level-configs';
 import { playerConfig, updatePlayerConfig } from '../constants/configs/player-configs';
 
@@ -20,15 +21,19 @@ export class LocalForage {
 
     public async load(): Promise<void> {
         this._loading = true;
-        const [version, localforagePlayerConfig, localforageLevelConfigs] = await Promise.all([
-            <number>(<unknown>localforage.getItem('version')),
-            <PlayerConfig>(<unknown>localforage.getItem('playerConfig')),
-            <LevelConfig[]>(<unknown>localforage.getItem('levelConfigs')),
-        ]);
+        const [version, localforagePlayerConfig, localforageLevelConfigs, localforageFriendsConfig] = await Promise.all(
+            [
+                <number>(<unknown>localforage.getItem('version')),
+                <PlayerConfig>(<unknown>localforage.getItem('playerConfig')),
+                <LevelConfig[]>(<unknown>localforage.getItem('levelConfigs')),
+                <FriendsConfig>(<unknown>localforage.getItem('friendsConfig')),
+            ],
+        );
 
         if (version && version === LocalForage._version) {
             localforagePlayerConfig && updatePlayerConfig(localforagePlayerConfig);
             localforageLevelConfigs && updateLevelConfigs(localforageLevelConfigs);
+            localforageFriendsConfig && updateFriendsConfig(localforageFriendsConfig);
         }
 
         this._loading = false;
@@ -39,10 +44,15 @@ export class LocalForage {
             localforage.setItem('version', LocalForage._version),
             localforage.setItem('playerConfig', playerConfig),
             localforage.setItem('levelConfigs', levelConfigs),
+            localforage.setItem('friendsConfig', friendsConfig),
         ]);
     }
 
     public async reset(): Promise<void> {
-        await Promise.all([localforage.setItem('playerConfig', null), localforage.setItem('levelConfigs', null)]);
+        await Promise.all([
+            localforage.setItem('playerConfig', null),
+            localforage.setItem('levelConfigs', null),
+            localforage.setItem('friendsConfig', null),
+        ]);
     }
 }
