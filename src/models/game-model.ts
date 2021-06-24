@@ -7,7 +7,7 @@ export class GameModel extends ObservableModel {
     private _friends: FriendsModel = null;
     private _levelIndex = -1;
 
-    public constructor(private _levelConfigs: LevelConfig[], private _friendsConfigs: FriendsConfigs) {
+    public constructor(private _levelConfigs: LevelConfig[], private _friendsConfigs: FriendsConfig) {
         super('GameModel');
         this.makeObservable('_level', '_friends');
     }
