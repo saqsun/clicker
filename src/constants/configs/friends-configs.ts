@@ -1,5 +1,5 @@
-export let friendConfigs: FriendConfigs = [
-    { cost: 13, damage: 5, activationLevel: 2, actionTime: 3, name: 'friend 1', dmgPlus: 1 },
+export let friendsConfigs: FriendsConfigs = [
+    { cost: 16, damage: 5, activationLevel: 2, actionTime: 3, name: 'friend 1', dmgPlus: 1 },
     { cost: 15, damage: 10, activationLevel: 8, actionTime: 3, name: 'friend 2', dmgPlus: 1 },
     { cost: 60, damage: 15, activationLevel: 13, actionTime: 3, name: 'friend 3', dmgPlus: 1 },
     { cost: 80, damage: 20, activationLevel: 18, actionTime: 3, name: 'friend 4', dmgPlus: 1 },
@@ -11,6 +11,6 @@ export let friendConfigs: FriendConfigs = [
     { cost: 800, damage: 50, activationLevel: 48, actionTime: 3, name: 'friend 10', dmgPlus: 1 },
 ];
 
-export const updateLevelConfigs = (newFriendConfigs: FriendConfigs): void => {
-    friendConfigs = newFriendConfigs;
+export const updateLevelConfigs = (newFriendConfigs: FriendsConfigs): void => {
+    friendsConfigs = newFriendConfigs;
 };
