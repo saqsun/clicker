@@ -26,8 +26,8 @@ export class BotView extends Container {
         if (oldHP > newHP) {
             gsap.to(this.scale, {
                 duration: 0.1,
-                x: 1.03,
-                y: 1.03,
+                x: 0.93,
+                y: 0.93,
                 yoyo: true,
                 repeat: 1,
                 ease: 'bounce.out',

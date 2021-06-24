@@ -1,4 +1,5 @@
 import { Graphics } from '@pixi/graphics';
+import { gsap } from 'gsap/all';
 import { FriendModel } from '../models/friend-model';
 
 export class FriendView extends Graphics {
@@ -21,5 +22,16 @@ export class FriendView extends Graphics {
 
     public setIsActiveUpdate(isActive: boolean): void {
         this.visible = isActive;
+    }
+
+    public action(): void {
+        gsap.to(this.scale, {
+            duration: 0.1,
+            x: 1.2,
+            y: 1.2,
+            yoyo: true,
+            repeat: 1,
+            ease: 'bounce.out',
+        });
     }
 }

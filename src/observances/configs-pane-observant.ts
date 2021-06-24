@@ -96,7 +96,7 @@ export class ConfigsPaneObservant {
             });
             const [botsTab, bossTab] = tab.pages;
             const { bots, boss } = l;
-            console.warn(bots.incrementHp);
+
             botsTab.addInput(bots, 'count', { disabled: true, step: 1 });
             botsTab.addInput(bots, 'startHp', { label: 'start hp', step: 1 });
             botsTab.addInput(bots, 'incrementHp', { label: 'incrementHp', step: 1 });
