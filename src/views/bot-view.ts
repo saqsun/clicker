@@ -8,11 +8,14 @@ import { BotViewEvent } from '../events/view';
 import { Container } from '../utils/container';
 
 export class BotView extends Container {
+    private _preEventTimeStamp: number;
+
     public constructor(uuid: string, hitArea: Rectangle) {
         super();
         this.name = uuid;
         this.$build();
         this.$makeInteractive(hitArea);
+
         lego.event.on(BotModelEvent.hpUpdate, this.$onHpUpdate, this);
     }
 
@@ -50,7 +53,10 @@ export class BotView extends Container {
     }
 
     protected $onPointerDown(e: InteractionEvent): void {
-        // console.warn(e);
-        e.data.isPrimary && lego.event.emit(BotViewEvent.click);
+        if (this._preEventTimeStamp && e.data.originalEvent.timeStamp - this._preEventTimeStamp <= 30) {
+            return;
+        }
+        lego.event.emit(BotViewEvent.click);
+        this._preEventTimeStamp = e.data.originalEvent.timeStamp;
     }
 }
